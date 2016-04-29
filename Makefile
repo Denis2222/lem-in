@@ -3,7 +3,7 @@ SRCS = main.c \
 		t_li.c
 
 NAME = lem_in
-GCC_FLAGS = -g -Wall -Werror -Wextra
+GCC_FLAGS = -g
 CC = gcc $(GCC_FLAGS)
 SRCDIR = ./
 OBJDIR = ./objs
