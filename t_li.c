@@ -12,30 +12,50 @@
 
 #include "lem_in.h"
 
-int		ft_streachr(char *str, int (f)(int))
+t_dot	*dot(int x, int y)
 {
-	int	i;
+	t_dot	*dot;
 
-	i = 0;
-	//ft_printf("IN STREACHR\n");
-	while (str[i])
-	{
-		//ft_printf("Looks at char [%c]\n", str[i]);
-		//ft_printf(" is f(%c) : %d\n", str[i], f(str[i]));
-		if (!f(str[i]))
-			return (0);
-		i++;
-	}
-	return (1);
+	if (!(dot = (t_dot*)malloc(sizeof(t_dot))))
+		return (NULL);
+	dot->x = x;
+	dot->y = y;
+	return (dot);
 }
 
+void	draw_line(char **screen, t_dot *p0, t_dot *p1, char c)
+{
+	t_dot	*d;
+	t_dot	*s;
+	int		err;
+	int		e2;
+
+	d = dot(ft_abs(p1->x - p0->x), ft_abs(p1->y - p0->y));
+	s = dot((p0->x < p1->x ? 1 : -1), (p0->y < p1->y ? 1 : -1));
+	err = (d->x > d->y ? d->x : -d->y) / 2;
+	while (!(p0->x == p1->x && p0->y == p1->y))
+	{
+
+		if (p0->x < 200 && p0->x > 0 && p0->y < 50 && p0->y > 0)
+		{
+			screen[p0->y][p0->x] = c;
+		}
+		e2 = err;
+		if (e2 > -d->x)
+		{
+			err -= d->y;
+			p0->x += s->x;
+		}
+		if (e2 < d->y)
+		{
+			err += d->x;
+			p0->y += s->y;
+		}
+	}
+}
 
 t_li	*new_lem_in(void)
 {
-	t_list	*stdin;
-	t_room	*rooms;
-	t_wire	*wires;
-	int		ant;
 	t_li	*li;
 
 	li = (t_li *)malloc(sizeof(t_li));
@@ -44,109 +64,197 @@ t_li	*new_lem_in(void)
 	li->end = NULL;
 	li->rooms = NULL;
 	li->wires = NULL;
+	li->ants = NULL;
 
-	ant = 0;
 	return (li);
 }
 
-int	isant(char *line)
+char 	**newscreen()
 {
-	char	**tab;
-	int		ok;
+	char 	**screen;
+	int		height;
+	int		width;
 
-	ok = 0;
-	tab = ft_strsplit(line, ' ');
-	if (ft_tablen(tab) == 1)
+	height = 50;
+	width = 200;
+	screen = (char**)malloc(sizeof(char*) * (height + 1));
+	screen[height] = NULL;
+	while (--height >= 0)
 	{
-		//ft_printf(" striseachdigit %d", ft_streachr(tab[0], ft_isdigit));
-		if (ft_streachr(tab[0], ft_isdigit))
+		screen[height] = (char*)malloc(sizeof(char) * (width + 1));
+		ft_bzero(screen[height], width);
+		ft_memset(screen[height], '`', width -1);
+	}
+	return screen;
+}
+
+void putstrscreen(char **screen,char *format, char *txt, int x, int y)
+{
+	int	len;
+	int	i;
+	char *str;
+	i = 0;
+
+	str = ft_mprintf(format, txt);
+	len = ft_strlen(str);
+	x = x - (len / 2);
+	if (x + i >= 0)
+	{
+		if (y > 0)
 		{
-			ok = 1;
+			while (screen[y][x + i] && str[i])
+			{
+				screen[y][x + i] = str[i];
+				i++;
+			}
 		}
 	}
-	ft_tabfree(tab);
-	return (ok);
+	str = NULL;
 }
 
-int	isroom(char *line)
+void viewscreen(char **screen)
 {
-	char	**tab;
-	int		ok;
+	int	i;
 
-	ok = 0;
-	tab = ft_strsplit(line, ' ');
-	if (ft_tablen(tab) == 3)
-		if (ft_streachr(tab[0], ft_isascii) &&
-			ft_streachr(tab[1], ft_isdigit) &&
-			ft_streachr(tab[2], ft_isdigit))
-			ok = 1;
-	ft_tabfree(tab);
-	return (ok);
+	i = 0;
+	while (screen[i])
+	{
+		ft_printf("%s\n", screen[i]);
+		i++;
+	}
 }
 
-
-int	iswire(char *line)
+void 	tracewire(char **screen, t_wire *wire)
 {
-	char	**tab;
-	int		ok;
+	//int	x;
+	//int	y;
+	//char h;
+	//char v;
 
-	ok = 0;
-	tab = ft_strsplit(line, '-');
-	if (ft_tablen(tab) == 2)
-		if (ft_streachr(tab[0], ft_isascii) &&
-			ft_streachr(tab[1], ft_isascii))
-			ok = 1;
-	ft_tabfree(tab);
-	return (ok);
+	//x = wire->a->x - wire->b->x;
+	//y = wire->a->y - wire->b->y;
+
+	draw_line(screen, dot(wire->a->x, wire->a->y), dot(wire->b->x, wire->b->y), '.');
 }
 
-void	readstdin(t_li *li)
+void 	view(t_li *li)
+{
+	t_room	*room;
+	t_rw	*rw;
+	char 	**screen;
+
+	screen = newscreen();
+	room = li->rooms;
+	while (room)
+	{
+		rw = room->wires;
+		while (rw)
+		{
+			if (rw->wire->a != rw->wire->b)
+				tracewire(screen, rw->wire);
+			rw = rw->next;
+		}
+		room = room->next;
+	}
+	room = li->rooms;
+	while (room)
+	{
+
+		rw = room->wires;
+		while (rw)
+		{
+			if (rw->wire->a != rw->wire->b)
+			{
+				putstrscreen(screen,
+					"%s",
+					ft_itoa(rw->wire->power),
+					(rw->wire->a->x + rw->wire->b->x) / 2 ,
+					(rw->wire->a->y + rw->wire->b->y) / 2 );
+			}
+			rw = rw->next;
+		}
+
+		putstrscreen(screen,
+			"['%s']",
+			room->name,
+			room->x,
+			room->y - 2);
+		putstrscreen(screen,
+			"[ %s ]",
+			ft_itoa(get_nb_ant_on_room(li, room)),
+			room->x,
+			room->y - 1);
+		putstrscreen(screen,
+			"*",
+			room->name,
+			room->x,
+			room->y);
+		room = room->next;
+	}
+
+	viewscreen(screen);
+
+}
+
+void	readlemin(t_li *li)
 {
 	int		ret;
 	char	*line;
-	t_list	*elem;
 	int		flag[2];
 
 	flag[0] = 0;
 	flag[1] = 0;
+	ft_printf("Wait gnl().. !");
 	while ((ret = get_next_line(0, &line)) > 0)
 	{
+		ft_printf("What ?");
 		ft_printf("%s\n", line);
 		if (isant(line))
 		{
 			li->ant = ft_atoi(line);
-			ft_printf("ant");
 		}
-		if (ft_strequ(line, "##start"))
+		else if (ft_strequ(line, "##start"))
 		{
 			flag[0] = 1;
 		}
-		if (ft_strequ(line, "##end"))
+		else if (ft_strequ(line, "##end"))
 		{
 			flag[1] = 1;
 		}
-		if (isroom(line))
+		else if (ft_strncmp(line, "#", 1) == 0)
 		{
-			ft_printf("isroom");
+
+		}
+		else if (isroom(line))
+		{
 			if (flag[0])
 			{
 				flag[0] = 0;
-				ft_printf(" && start");
+				newroom(li, line, 1);
 			}
-			if (flag[1])
+			else if (flag[1])
 			{
 				flag[1] = 0;
-				ft_printf(" && end");
+				newroom(li, line, 2);
 			}
-			ft_printf("\n");
+			else
+			{
+				newroom(li, line, 0);
+			}
 		}
-		if (iswire(line))
+		else if (iswire(line))
 		{
-			ft_printf("iswire");
-			ft_printf("\n");
+			newwire(li, line);
+		}
+		else
+		{
+			free(line);
+			line = NULL;
+			break;
 		}
 		free(line);
 		line = NULL;
 	}
-
+	ft_printf("ok");
+	populate_ant(li);
 }

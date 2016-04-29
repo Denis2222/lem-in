@@ -12,35 +12,47 @@
 
 #include "lem_in.h"
 
-int		main(int ac, char **av)
+void recurspore(t_li *li, t_room *room, int jump)
 {
-	t_li	*lemin;
-	t_ant *ant;
-	int		coup;
-	(void)ac;
-	(void)av;
-	lemin = new_lem_in();
-	ft_printf("???\n");
-	readlemin(lemin);
-	ft_printf("???\n");
-	spore(lemin);
-	//view(lemin);
-	ft_printf("???\n");
-	//sleep(10);
-	coup = 0;
-	while (get_nb_ant_on_room(lemin, lemin->end) != lemin->ant)
+	t_rw *rw;
+
+	if (room == li->start)
+		return ;
+	room->jump = jump;
+	rw = room->wires;
+	while (rw)
 	{
-		ant = lemin->ants;
-		while (ant)
+		if (rwtoroom(rw)!= room &&
+			(rwtoroom(rw)->jump == -1 || rwtoroom(rw)->jump > jump)
+		)
 		{
-			//ft_printf("%p", ant->room);
-			ant = ant->next;
+			rw->wire->power = jump;
+			recurspore(li, rwtoroom(rw), jump + 1);
 		}
-		ants_move(lemin);
-		coup++;
-		view(lemin);
-		usleep(10000);
+		rw = rw->next;
 	}
-	ft_printf("nb coup :%d\n", coup);
+}
+
+int 	checkresolve(t_li *li)
+{
+	t_rw 	*rw;
+
+	rw = li->start->wires;
+	while (rw)
+	{
+		if (rw->wire->power > -1)
+			return (1);
+		rw = rw->next;
+	}
 	return (0);
+}
+
+void 	spore(t_li *li)
+{
+	recurspore(li, li->end, 0);
+	if (!checkresolve(li))
+	{
+		ft_printf("ERROR");
+		exit(0);
+	}
 }
