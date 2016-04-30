@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 06:55:44 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/29 07:50:12 by anonymous        ###   ########.fr       */
+/*   Updated: 2016/04/30 03:26:33 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 # define LEM_IN_H
 
 # include "libft/libft.h"
+
+typedef struct			s_ascii_screen
+{
+	char				**data;
+	int					height;
+	int					width;
+}						t_screen;
 
 typedef struct			s_room_wire
 {
@@ -61,26 +68,26 @@ typedef struct			s_lem_in
 	t_room				*end;
 	t_room				*rooms;
 	t_wire				*wires;
+	t_wire				**usedwires;
+	int					nbusedwires;
 	t_ant				*ants;
 }						t_li;
 
 t_li					*new_lem_in(void);
 void 					view(t_li *li);
 void					readlemin(t_li *li);
-
 int						ft_streachr(char *str, int (f)(int));
 
 //room
-void 					newroom(t_li *li, char *line, int type);
+int						newroom(t_li *li, char *line, int flag);
 void 					addroom(t_li *li, t_room *room, int type);
 t_room					*getroomptr(t_li *li, char *name, t_wire *wire, int way);
 t_room 					*rwtoroom(t_rw *rw);
 
 //wire
 void 					addwireroom(t_room *room, t_wire *wire, int way);
-void 					newwire(t_li *li, char *line);
+int 					newwire(t_li *li, char *line);
 void 					addwire(t_li *li, t_wire *wire);
-
 
 //is
 int						isant(char *line);
@@ -90,11 +97,10 @@ int						iswire(char *line);
 //resolve
 void 					spore(t_li *li);
 
-
 //ant
-int				ant_on_room(t_li *li, t_room *room);
-int				get_nb_ant_on_room(t_li *li, t_room *room);
-void 			populate_ant(t_li *li);
-void 			ants_move(t_li *li);
+int						ant_on_room(t_li *li, t_room *room);
+int						get_nb_ant_on_room(t_li *li, t_room *room);
+void 					populate_ant(t_li *li);
+void 					ants_move(t_li *li);
 
 #endif

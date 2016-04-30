@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 06:54:20 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/29 08:09:07 by anonymous        ###   ########.fr       */
+/*   Updated: 2016/04/30 03:27:35 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,21 @@
 int		main(int ac, char **av)
 {
 	t_li	*lemin;
-	t_ant *ant;
+
 	int		coup;
 	(void)ac;
 	(void)av;
 	lemin = new_lem_in();
-	ft_printf("???\n");
 	readlemin(lemin);
-	ft_printf("???\n");
 	spore(lemin);
-	//view(lemin);
-	ft_printf("???\n");
-	//sleep(10);
 	coup = 0;
 	while (get_nb_ant_on_room(lemin, lemin->end) != lemin->ant)
 	{
-		ant = lemin->ants;
-		while (ant)
-		{
-			//ft_printf("%p", ant->room);
-			ant = ant->next;
-		}
 		ants_move(lemin);
 		coup++;
-		view(lemin);
-		usleep(10000);
+		//view(lemin);
+		//usleep(1000000);
 	}
-	ft_printf("nb coup :%d\n", coup);
+	ft_printf("\n{blue}=====================\ncoup :%d \n=====================\n{eoc}", coup);
 	return (0);
 }

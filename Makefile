@@ -5,6 +5,7 @@ SRCS = main.c \
 		is.c \
 		resolve.c \
 		t_ant.c \
+		display.c \
 		t_li.c
 
 NAME = lem-in
@@ -39,7 +40,5 @@ fclean: clean
 
 re: fclean all
 
-test: fclean all
-	rm -f test
-	gcc libftprintf.a main.c -o test
-	./test
+test: clean $(NAME)
+	./lem-in < ./map/empty.map

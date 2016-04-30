@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   resolve.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 06:54:20 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/29 08:09:07 by anonymous        ###   ########.fr       */
+/*   Updated: 2016/04/30 02:35:48 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void recurspore(t_li *li, t_room *room, int jump)
 {
-	t_rw *rw;
+	t_rw 	*rw;
+	t_room	*roomptr;
 
 	if (room == li->start)
 		return ;
@@ -22,12 +23,15 @@ void recurspore(t_li *li, t_room *room, int jump)
 	rw = room->wires;
 	while (rw)
 	{
-		if (rwtoroom(rw)!= room &&
-			(rwtoroom(rw)->jump == -1 || rwtoroom(rw)->jump > jump)
-		)
+		roomptr = rwtoroom(rw);
+		if (roomptr)
 		{
-			rw->wire->power = jump;
-			recurspore(li, rwtoroom(rw), jump + 1);
+			if (roomptr != room &&
+				(roomptr->jump == -1 || roomptr->jump > jump))
+			{
+				rw->wire->power = jump;
+				recurspore(li, roomptr, jump + 1);
+			}
 		}
 		rw = rw->next;
 	}
@@ -52,7 +56,7 @@ void 	spore(t_li *li)
 	recurspore(li, li->end, 0);
 	if (!checkresolve(li))
 	{
-		ft_printf("ERROR");
+		ft_printf("ERROR \n{red}No solution found{eoc}");
 		exit(0);
 	}
 }

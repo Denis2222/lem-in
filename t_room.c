@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   t_room.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 09:46:47 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/29 07:26:57 by anonymous        ###   ########.fr       */
+/*   Updated: 2016/04/30 03:27:39 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void newroom(t_li *li, char *line, int type)
+int newroom(t_li *li, char *line, int flag)
 {
 	t_room	*elem;
 	char	**tab;
@@ -25,7 +25,8 @@ void newroom(t_li *li, char *line, int type)
 	elem->jump = -1;
 	elem->wires = NULL;
 	elem->next = NULL;
-	addroom(li, elem, type);
+	addroom(li, elem, flag);
+	return (1);
 }
 
 void addroom(t_li *li, t_room *room, int type)
@@ -87,11 +88,12 @@ t_room	*getroomptr(t_li *li, char *name, t_wire *wire, int way)
 			break;
 		current = current->next;
 	}
-
-	if (ft_strequ(current->name, name))
-	{
-		addwireroom(current, wire, way);
-		return (current);
-	}
+	if (current)
+		if (ft_strequ(current->name, name))
+		{
+			addwireroom(current, wire, way);
+			return (current);
+		}
+	ft_printf("\ngetroomptr pas content\n");
 	return (NULL);
 }
