@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 09:46:47 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/30 02:38:49 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/01 06:47:17 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,17 @@ int	newwire(t_li *li, char *line)
 	char	**tab;
 
 	tab = ft_strsplit(line, '-');
+	if (!getroombyname(li, tab[0]) || !getroombyname(li, tab[1]))
+		return (0);
 	elem = (t_wire*)malloc(sizeof(t_wire));
 	elem->a = getroomptr(li, tab[0], elem, 0);
 	elem->b = getroomptr(li, tab[1], elem, 1);
+	elem->antpass = 0;
 	if(!elem->a || !elem->b)
+	{
+		ft_printf("newwire return 0");
 		return (0);
+	}
 	elem->power = -1;
 	elem->next = NULL;
 	addwire(li, elem);

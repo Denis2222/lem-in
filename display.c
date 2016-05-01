@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 23:07:22 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/30 01:53:33 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/01 06:52:04 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,11 @@ void 	view(t_li *li)
 		rw = room->wires;
 		while (rw)
 		{
-			if (rw->wire->a != rw->wire->b)
-				tracewire(screen, rw->wire);
+			if (rwtoroom(rw))
+			{
+				if (rw->wire->a != rw->wire->b)
+					tracewire(screen, rw->wire);
+			}
 			rw = rw->next;
 		}
 		room = room->next;
@@ -148,6 +151,10 @@ void 	view(t_li *li)
 				putstrscreen(screen,
 					"%s", ft_itoa(rw->wire->power),
 					(rw->wire->a->x + rw->wire->b->x) / 2 ,
+					(rw->wire->a->y + rw->wire->b->y) / 2 );
+				putstrscreen(screen,
+					"[%s]", ft_itoa(rw->wire->antpass),
+					(rw->wire->a->x + rw->wire->b->x) / 2 - 3,
 					(rw->wire->a->y + rw->wire->b->y) / 2 );
 			}
 			rw = rw->next;

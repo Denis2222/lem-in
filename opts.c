@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/01 02:22:40 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/01 02:27:40 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/01 08:35:42 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	readoptsargs(char **av, char *opts, int i)
 {
-	const char	args[7] = {'v', 'g'};
+	const char	args[7] = {'v', 'g', 'a', '1'};
 
 	while (ft_strchr(args, *av[i]) && *av[i] != 0)
 	{

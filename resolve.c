@@ -6,11 +6,27 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 06:54:20 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/30 04:43:00 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/01 10:21:19 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+void reorderroom(t_li *li)
+{
+	t_room	*room;
+	int		i;
+
+	i = 0;
+	room = li->rooms;
+	while (room)
+	{
+		room->y = i*2 + 5;
+		room->x = room->jump*20 + 5;
+		i++;
+		room = room->next;
+	}
+}
 
 void recurspore(t_li *li, t_room *room, int jump)
 {
@@ -54,10 +70,11 @@ int 	checkresolve(t_li *li)
 
 void 	spore(t_li *li)
 {
-	recurspore(li, li->end, 0);
+	recurspore(li, li->end, 1);
 	if (!checkresolve(li))
 	{
 		ft_printf("ERROR \n{red}No solution found{eoc}");
 		exit(0);
 	}
+	//reorderroom(li);
 }

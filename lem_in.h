@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 06:55:44 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/01 02:28:53 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/01 06:47:03 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct			s_li_wire
 	t_room				*a;
 	t_room				*b;
 	int					power;
+	int					antpass;
 	struct s_li_wire	*next;
 }						t_wire;
 
@@ -72,20 +73,22 @@ typedef struct			s_lem_in
 	int					nbusedwires;
 	t_ant				*ants;
 	char				*opts;
+	char				*stdin;
 }						t_li;
 
 t_li					*new_lem_in(void);
 void 					view(t_li *li);
 void					readlemin(t_li *li);
 int						ft_streachr(char *str, int (f)(int));
-
-int		readopts(int ac, char **av, char *opts, int i);
+void					viewstate(t_li *li);
+int						readopts(int ac, char **av, char *opts, int i);
 
 //room
 int						newroom(t_li *li, char *line, int flag);
 void 					addroom(t_li *li, t_room *room, int type);
 t_room					*getroomptr(t_li *li, char *name, t_wire *wire, int way);
 t_room 					*rwtoroom(t_rw *rw);
+t_room					*getroombyname(t_li *li, char *name);
 
 //wire
 void 					addwireroom(t_room *room, t_wire *wire, int way);
