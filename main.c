@@ -6,21 +6,28 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 06:54:20 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/01 07:00:47 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/01 15:26:51 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
+void	bonus(t_li *lemin)
+{
+	if (lemin->opts['a'])
+	{
+		system("clear");
+		view(lemin);
+		sleep(1);
+	}
+}
+
 int		main(int ac, char **av)
 {
 	t_li	*lemin;
-
 	int		coup;
-	(void)ac;
-	(void)av;
-	lemin = new_lem_in();
 
+	lemin = new_lem_in();
 	readopts(ac, av, lemin->opts, 0);
 	readlemin(lemin);
 	ft_printf("%s\n", lemin->stdin);
@@ -32,12 +39,7 @@ int		main(int ac, char **av)
 	{
 		ants_move(lemin);
 		coup++;
-		if (lemin->opts['a'])
-		{
-			system("clear");
-			view(lemin);
-			usleep(1000000);
-		}
+		bonus(lemin);
 	}
 	if (lemin->opts['v'])
 		ft_printf("\n{blue}===========\ncoup :%d \n===========\n{eoc}", coup);

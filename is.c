@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 09:46:47 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/01 01:53:40 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/01 13:47:34 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	isroom(char *line)
 	ft_tabfree(tab);
 	return (ok);
 }
-
 
 int	iswire(char *line)
 {

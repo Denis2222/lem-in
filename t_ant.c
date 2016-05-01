@@ -6,70 +6,13 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 09:46:47 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/01 12:28:48 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/01 15:47:31 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		get_nb_ant_on_room(t_li *li, t_room *room)
-{
-	t_ant	*ant;
-	int		nb;
-
-	nb = 0;
-	ant = li->ants;
-	while (ant)
-	{
-		if (ant->room == room)
-			nb++;
-		ant = ant->next;
-	}
-	return (nb);
-}
-
-int		ant_on_room(t_li *li, t_room *room)
-{
-	t_ant	*ant;
-
-	ant = li->ants;
-	while (ant)
-	{
-		if (ant->room == room)
-			return (1);
-		ant = ant->next;
-	}
-	return (0);
-}
-
-void 	populate_ant(t_li *li)
-{
-	int		i;
-	t_ant 	*ant;
-	t_ant	*current;
-
-	i = li->ant;
-	while (i > 0)
-	{
-		ant = (t_ant*)malloc(sizeof(t_ant));
-		ant->room = li->start;
-		ant->x = li->start->x;
-		ant->y = li->start->y;
-		ant->next = NULL;
-		if (!li->ants)
-			li->ants = ant;
-		else
-		{
-			current = li->ants;
-			while (current->next)
-				current = current->next;
-			current->next = ant;
-		}
-		i--;
-	}
-}
-
-int	checkunusedwires(t_li *li, t_wire *wire)
+int		checkunusedwires(t_li *li, t_wire *wire)
 {
 	int i;
 
@@ -83,7 +26,7 @@ int	checkunusedwires(t_li *li, t_wire *wire)
 	return (1);
 }
 
-int		ant_brain(t_li *li,t_ant *ant, t_rw *rw)
+int		ant_brain(t_li *li, t_ant *ant, t_rw *rw)
 {
 	int		total;
 	int		current;
@@ -98,7 +41,8 @@ int		ant_brain(t_li *li,t_ant *ant, t_rw *rw)
 	choix = ant->room->wires;
 	while (choix)
 	{
-		if (choix != rw && choix->wire->power < rw->wire->power && choix->wire->power > -1)
+		if (choix != rw && choix->wire->power < rw->wire->power &&
+			choix->wire->power > -1)
 		{
 			total += choix->wire->power;
 			nbchoix++;
@@ -111,7 +55,19 @@ int		ant_brain(t_li *li,t_ant *ant, t_rw *rw)
 	return (1);
 }
 
-void ant_move(t_li *li, t_ant *ant, int nb)
+void	ant_move(t_li *li, t_ant *ant, t_rw *best, int nb)
+{
+	if (!li->opts['1'])
+		ft_printf("L%d-%s ", nb, rwtoroom(best)->name);
+	best->wire->antpass++;
+	ant->x = rwtoroom(best)->x;
+	ant->y = rwtoroom(best)->y;
+	ant->room = rwtoroom(best);
+	li->usedwires[li->nbusedwires] = best->wire;
+	li->nbusedwires++;
+}
+
+void	ant_choose_move(t_li *li, t_ant *ant, int nb)
 {
 	t_rw	*rw;
 	t_rw	*best;
@@ -136,20 +92,11 @@ void ant_move(t_li *li, t_ant *ant, int nb)
 		}
 		rw = rw->next;
 	}
-	if (best && bestjump >=0)
-	{
-		if (!li->opts['1'])
-			ft_printf("L%d-%s ", nb, rwtoroom(best)->name);
-		best->wire->antpass++;
-		ant->x = rwtoroom(best)->x;
-		ant->y = rwtoroom(best)->y;
-		ant->room = rwtoroom(best);
-		li->usedwires[li->nbusedwires] = best->wire;
-		li->nbusedwires++;
-	}
+	if (best && bestjump >= 0)
+		ant_move(li, ant, best, nb);
 }
 
-void 	ants_move(t_li *li)
+void	ants_move(t_li *li)
 {
 	t_ant	*ant;
 	t_room	*room;
@@ -170,7 +117,7 @@ void 	ants_move(t_li *li)
 		ft_printf("\n");
 	while (ant)
 	{
-		ant_move(li, ant, nb);
+		ant_choose_move(li, ant, nb);
 		ant = ant->next;
 		nb++;
 	}

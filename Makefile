@@ -1,16 +1,19 @@
 SRCS = main.c \
 		parsing.c \
 		t_room.c \
+		t_room_getter.c \
 		t_wire.c \
 		is.c \
 		resolve.c \
 		t_ant.c \
+		t_screen.c \
 		display.c \
+		draw.c \
 		t_li.c \
 		opts.c
 
 NAME = lem-in
-GCC_FLAGS = -g -Wall -Werror -Wextra
+GCC_FLAGS = -Wall -Werror -Wextra
 CC = gcc $(GCC_FLAGS)
 SRCDIR = ./
 OBJDIR = ./objs

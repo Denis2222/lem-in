@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/23 09:46:47 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/01 05:30:47 by dmoureu-         ###   ########.fr       */
+/*   Created: 2016/05/01 14:59:53 by dmoureu-          #+#    #+#             */
+/*   Updated: 2016/05/01 15:33:01 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int newroom(t_li *li, char *line, int flag)
+int		newroom(t_li *li, char *line, int flag)
 {
 	t_room	*elem;
 	char	**tab;
@@ -29,9 +29,8 @@ int newroom(t_li *li, char *line, int flag)
 	return (1);
 }
 
-void addroom(t_li *li, t_room *room, int type)
+void	addroom(t_li *li, t_room *room, int type)
 {
-
 	t_room	*current;
 
 	current = li->rooms;
@@ -49,7 +48,7 @@ void addroom(t_li *li, t_room *room, int type)
 		li->end = room;
 }
 
-void addwireroom(t_room *room, t_wire *wire, int way)
+void	addwireroom(t_room *room, t_wire *wire, int way)
 {
 	t_rw	*current;
 	t_rw	*rw;
@@ -58,7 +57,6 @@ void addwireroom(t_room *room, t_wire *wire, int way)
 	rw->next = NULL;
 	rw->wire = wire;
 	rw->way = way;
-
 	current = room->wires;
 	if (!current)
 		room->wires = rw;
@@ -70,44 +68,32 @@ void addwireroom(t_room *room, t_wire *wire, int way)
 	}
 }
 
-t_room *rwtoroom(t_rw *rw)
+int		get_nb_ant_on_room(t_li *li, t_room *room)
 {
-	if (rw->way)
-		return (rw->wire->a);
-	return (rw->wire->b);
+	t_ant	*ant;
+	int		nb;
+
+	nb = 0;
+	ant = li->ants;
+	while (ant)
+	{
+		if (ant->room == room)
+			nb++;
+		ant = ant->next;
+	}
+	return (nb);
 }
 
-t_room	*getroombyname(t_li *li, char *name)
+int		ant_on_room(t_li *li, t_room *room)
 {
-	t_room	*current;
+	t_ant	*ant;
 
-	current = li->rooms;
-	while (current)
+	ant = li->ants;
+	while (ant)
 	{
-		if (ft_strequ(current->name, name))
-			return (current);
-		current = current->next;
+		if (ant->room == room)
+			return (1);
+		ant = ant->next;
 	}
-	return (NULL);
-}
-
-t_room	*getroomptr(t_li *li, char *name, t_wire *wire, int way)
-{
-	t_room	*current;
-
-	current = li->rooms;
-	while (current)
-	{
-		if (ft_strequ(current->name, name))
-			break;
-		current = current->next;
-	}
-	if (current)
-		if (ft_strequ(current->name, name))
-		{
-			addwireroom(current, wire, way);
-			return (current);
-		}
-	ft_printf("\ngetroomptr pas content\n");
-	return (NULL);
+	return (0);
 }
