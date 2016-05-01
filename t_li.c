@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 09:46:47 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/01 06:34:38 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/01 12:26:29 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void 	ft_printf_each_room(t_room *first)
 		rw = room->wires;
 		while (rw)
 		{
-			//ft_printf("[%d]", rw->way);
 			if (rwtoroom(rw))
 				ft_printf("->%s", rwtoroom(rw)->name);
 			else
@@ -149,16 +148,13 @@ void	readlemin(t_li *li)
 	retour = 0;
 	while ((ret = get_next_line(STDIN_FILENO, &line)) > 0)
 	{
-
 		addstdin(li, line);
 		retour = lineparser(li, line);
-		//ft_printf("%d\n", retour);
 		if (retour == 0)
 			break;
 		free(line);
 		line = NULL;
 	}
-	//ft_printf("parse error: %d", retour);
 	if (!li->rooms || !li->wires || !li->end || !li->start)
 	{
 		ft_printf("ERROR {red}[t_li parser]{eoc}\n");

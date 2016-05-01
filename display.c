@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 23:07:22 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/01 06:52:04 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/01 12:27:42 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ void 	view(t_li *li)
 	t_rw	*rw;
 	t_screen *screen;
 
-
 	screen = newscreen(140,50);
 	room = li->rooms;
 	while (room)
@@ -132,10 +131,8 @@ void 	view(t_li *li)
 		while (rw)
 		{
 			if (rwtoroom(rw))
-			{
 				if (rw->wire->a != rw->wire->b)
 					tracewire(screen, rw->wire);
-			}
 			rw = rw->next;
 		}
 		room = room->next;

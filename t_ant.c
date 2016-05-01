@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 09:46:47 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/01 11:31:27 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/01 12:28:48 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ int		ant_brain(t_li *li,t_ant *ant, t_rw *rw)
 		return (1);
 	current = rw->wire->power;
 	total = 0;
-
 	nbchoix = 0;
 	choix = ant->room->wires;
 	while (choix)
@@ -105,7 +104,6 @@ int		ant_brain(t_li *li,t_ant *ant, t_rw *rw)
 			nbchoix++;
 		}
 		choix = choix->next;
-
 	}
 	if (nbchoix > 0)
 		if (get_nb_ant_on_room(li, li->start) < (current * nbchoix))
@@ -142,7 +140,6 @@ void ant_move(t_li *li, t_ant *ant, int nb)
 	{
 		if (!li->opts['1'])
 			ft_printf("L%d-%s ", nb, rwtoroom(best)->name);
-
 		best->wire->antpass++;
 		ant->x = rwtoroom(best)->x;
 		ant->y = rwtoroom(best)->y;
@@ -169,7 +166,6 @@ void 	ants_move(t_li *li)
 		i++;
 	}
 	li->nbusedwires = 0;
-
 	if (!li->opts['1'])
 		ft_printf("\n");
 	while (ant)

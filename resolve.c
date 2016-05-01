@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 06:54:20 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/01 10:21:19 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/01 12:27:21 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,4 @@ void 	spore(t_li *li)
 		ft_printf("ERROR \n{red}No solution found{eoc}");
 		exit(0);
 	}
-	//reorderroom(li);
 }
