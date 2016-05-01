@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 06:55:44 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/01 15:47:29 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/01 15:59:05 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void					viewstate(t_li *li);
 int						readopts(int ac, char **av, char *opts, int i);
 
 int						newroom(t_li *li, char *line, int flag);
-void					addroom(t_li *li, t_room *room, int type);
+int						addroom(t_li *li, t_room *room, int type);
 t_room					*getroomptr(t_li *li, char *name,
 						t_wire *wire, int way);
 t_room					*rwtoroom(t_rw *rw);

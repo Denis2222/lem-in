@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/01 14:59:53 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/01 15:33:01 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/01 16:01:42 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,10 @@ int		newroom(t_li *li, char *line, int flag)
 	elem->jump = -1;
 	elem->wires = NULL;
 	elem->next = NULL;
-	addroom(li, elem, flag);
-	return (1);
+	return (addroom(li, elem, flag));
 }
 
-void	addroom(t_li *li, t_room *room, int type)
+int		addroom(t_li *li, t_room *room, int type)
 {
 	t_room	*current;
 
@@ -39,13 +38,22 @@ void	addroom(t_li *li, t_room *room, int type)
 	else
 	{
 		while (current->next)
+		{
+			if (ft_strequ(current->name, room->name))
+				return (0);
 			current = current->next;
+		}
 		current->next = room;
 	}
+	if (type == 1 && li->start != NULL)
+		return (0);
 	if (type == 1)
 		li->start = room;
+	if (type == 2 && li->end != NULL)
+		return (0);
 	if (type == 2)
 		li->end = room;
+	return (1);
 }
 
 void	addwireroom(t_room *room, t_wire *wire, int way)
