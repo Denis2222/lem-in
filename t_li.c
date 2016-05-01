@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 09:46:47 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/30 03:14:38 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/01 02:26:59 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_li	*new_lem_in(void)
 	li->usedwires = NULL;
 	li->nbusedwires = 0;
 	li->ants = NULL;
+	li->opts = ft_memalloc('z');
 	return (li);
 }
 
@@ -40,25 +41,25 @@ int	lineparser(t_li *li, char *line)
 	else if (ft_strequ(line, "##start"))
 	{
 		flag = 1;
-		return (1);
+		return (2);
 	}
 	else if (ft_strequ(line, "##end"))
 	{
 		flag = 2;
-		return (1);
+		return (3);
 	}
 	else if (ft_strncmp(line, "#", 1) == 0)
-		return (1);
+		return (4);
 	else if (isroom(line))
 	{
 		if (newroom(li, line, flag))
 		{
 			flag = 0;
-			return (1);
+			return (5);
 		}
 	}
 	else if (iswire(line))
-		return (newwire(li, line));
+		return (5 + newwire(li, line));
 	return (0);
 }
 
@@ -66,15 +67,20 @@ void	readlemin(t_li *li)
 {
 	int		ret;
 	char	*line;
+	int 	retour;
 
+	retour = 0;
 	while ((ret = get_next_line(0, &line)) > 0)
 	{
-		ft_printf("%s\n", line);
-		if (!lineparser(li, line))
+
+		retour = lineparser(li, line);
+		//ft_printf("%d\n", retour);
+		if (retour == 0)
 			break;
 		free(line);
 		line = NULL;
 	}
+	//ft_printf("parse error: %d", retour);
 	if (!li->rooms || !li->wires || !li->end || !li->start)
 	{
 		ft_printf("ERROR {red}[t_li parser]{eoc}\n");

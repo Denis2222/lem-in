@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 06:55:44 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/30 03:26:33 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/01 02:28:53 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,15 @@ typedef struct			s_lem_in
 	t_wire				**usedwires;
 	int					nbusedwires;
 	t_ant				*ants;
+	char				*opts;
 }						t_li;
 
 t_li					*new_lem_in(void);
 void 					view(t_li *li);
 void					readlemin(t_li *li);
 int						ft_streachr(char *str, int (f)(int));
+
+int		readopts(int ac, char **av, char *opts, int i);
 
 //room
 int						newroom(t_li *li, char *line, int flag);

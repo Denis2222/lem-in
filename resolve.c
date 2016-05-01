@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 06:54:20 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/30 02:35:48 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/30 04:43:00 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void recurspore(t_li *li, t_room *room, int jump)
 		}
 		rw = rw->next;
 	}
+	return ;
 }
 
 int 	checkresolve(t_li *li)

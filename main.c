@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 06:54:20 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/30 03:27:35 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/01 02:31:56 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int		main(int ac, char **av)
 	(void)ac;
 	(void)av;
 	lemin = new_lem_in();
+	readopts(ac, av, lemin->opts, 0);
 	readlemin(lemin);
+	//ft_printf("verbose mode:%d\n", lemin->opts['v']);
+	//ft_printf("graphic mode:%d\n", lemin->opts['g']);
 	spore(lemin);
 	coup = 0;
 	while (get_nb_ant_on_room(lemin, lemin->end) != lemin->ant)
@@ -30,6 +33,6 @@ int		main(int ac, char **av)
 		//view(lemin);
 		//usleep(1000000);
 	}
-	ft_printf("\n{blue}=====================\ncoup :%d \n=====================\n{eoc}", coup);
+	ft_printf("\n{blue}===========\ncoup :%d \n===========\n{eoc}", coup);
 	return (0);
 }

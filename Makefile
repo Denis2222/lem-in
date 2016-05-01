@@ -6,7 +6,8 @@ SRCS = main.c \
 		resolve.c \
 		t_ant.c \
 		display.c \
-		t_li.c
+		t_li.c \
+		opts.c
 
 NAME = lem-in
 GCC_FLAGS = -g -Wall -Werror -Wextra
