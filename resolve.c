@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 06:54:20 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/02 04:18:27 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/02 05:22:58 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	populate_ant(t_li *li)
 	{
 		ant = (t_ant*)malloc(sizeof(t_ant));
 		ant->room = li->start;
+		ant->room->ants++;
 		ant->x = li->start->x;
 		ant->y = li->start->y;
 		ant->next = NULL;

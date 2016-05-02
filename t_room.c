@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/01 14:59:53 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/02 04:57:01 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/02 05:22:54 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int		newroom(t_li *li, char *line, int flag)
 	elem->x = ft_atoi(tab[1]);
 	elem->y = ft_atoi(tab[2]);
 	elem->jump = -1;
+	elem->ants = 0;
 	elem->wires = NULL;
 	elem->next = NULL;
 	ft_tabfree(tab);

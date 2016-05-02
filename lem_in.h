@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 06:55:44 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/02 04:19:48 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/02 05:22:00 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct			s_li_room
 	char				*name;
 	struct s_room_wire	*wires;
 	struct s_li_room	*next;
+	int					ants;
 	int					x;
 	int					y;
 	int					jump;

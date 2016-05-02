@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 09:46:47 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/02 04:18:24 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/02 05:23:53 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,11 @@ void	ant_move(t_li *li, t_ant *ant, t_rw *best, int nb)
 	if (!li->opts['1'])
 		ft_printf("L%d-%s ", nb, rwtoroom(best)->name);
 	best->wire->antpass++;
+	ant->room->ants--;
 	ant->x = rwtoroom(best)->x;
 	ant->y = rwtoroom(best)->y;
 	ant->room = rwtoroom(best);
+	ant->room->ants++;
 	li->usedwires[li->nbusedwires] = best->wire;
 	li->nbusedwires++;
 }
