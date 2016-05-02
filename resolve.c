@@ -6,36 +6,48 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 06:54:20 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/02 05:22:58 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/02 06:30:38 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	reorderroom(t_li *li)
+int		checkdispersion(t_li *li, t_room *room)
 {
-	t_room	*room;
-	int		i;
+	t_rw	*rw;
+	t_room	*roomptr;
+	int		dispersion;
 
-	i = 0;
-	room = li->rooms;
-	while (room)
+	dispersion = 0;
+	rw = room->wires;
+	while (rw)
 	{
-		room->y = i * 2 + 5;
-		room->x = room->jump * 20 + 5;
-		i++;
-		room = room->next;
+		roomptr = rwtoroom(rw);
+		if (roomptr && room != li->end)
+		{
+			if (roomptr != room &&
+				(roomptr->jump < 0))
+			{
+				dispersion++;
+			}
+		}
+		rw = rw->next;
 	}
+	if (dispersion < 2)
+		dispersion = 0;
+	return (dispersion);
 }
 
 void	recurspore(t_li *li, t_room *room, int jump)
 {
 	t_rw	*rw;
 	t_room	*roomptr;
+	int		dispersion;
 
 	if (room == li->start)
 		return ;
 	room->jump = jump;
+	dispersion = checkdispersion(li, room);
 	rw = room->wires;
 	while (rw)
 	{
@@ -45,8 +57,8 @@ void	recurspore(t_li *li, t_room *room, int jump)
 			if (roomptr != room &&
 				(roomptr->jump == -1 || roomptr->jump > jump))
 			{
-				rw->wire->power = jump;
-				recurspore(li, roomptr, jump + 1);
+				rw->wire->power = jump + dispersion;
+				recurspore(li, roomptr, jump + 1 + dispersion);
 			}
 		}
 		rw = rw->next;
