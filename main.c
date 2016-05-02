@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 06:54:20 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/02 04:18:46 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/02 05:11:37 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,8 @@ int		main(int ac, char **av)
 		ft_printf("\n{blue}===========\ncoup :%d \n===========\n{eoc}", coup);
 	if (lemin->opts['g'])
 		view(lemin);
+
+
+	while (42);
 	return (0);
 }
