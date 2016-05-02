@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 23:07:22 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/01 15:29:12 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/02 01:31:29 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void		view(t_li *li)
 	t_rw		*rw;
 	t_screen	*screen;
 
-	screen = newscreen(140, 50);
+	screen = newscreen(180, 50);
 	room = li->rooms;
 	while (room)
 	{

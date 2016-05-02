@@ -6,13 +6,13 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 09:46:47 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/01 15:35:22 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/02 05:03:04 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_li	*new_lem_in(void)
+t_li	*new_lemin(void)
 {
 	t_li	*li;
 
@@ -28,45 +28,6 @@ t_li	*new_lem_in(void)
 	li->opts = ft_memalloc('z');
 	li->stdin = NULL;
 	return (li);
-}
-
-int		lineparser2(t_li *li, char *line)
-{
-	if (isant(line))
-	{
-		li->ant = ft_atoi(line);
-		return (1);
-	}
-	else if (ft_strncmp(line, "#", 1) == 0)
-		return (4);
-	else if (iswire(line))
-		return (newwire(li, line));
-	return (0);
-}
-
-int		lineparser(t_li *li, char *line)
-{
-	static int	flag = 0;
-
-	if (ft_strequ(line, "##start"))
-	{
-		flag = 1;
-		return (2);
-	}
-	else if (ft_strequ(line, "##end"))
-	{
-		flag = 2;
-		return (3);
-	}
-	else if (isroom(line))
-	{
-		if (newroom(li, line, flag))
-		{
-			flag = 0;
-			return (5);
-		}
-	}
-	return (0);
 }
 
 void	addstdin(t_li *li, char *line)
@@ -91,26 +52,52 @@ void	addstdin(t_li *li, char *line)
 	li->stdin = str;
 }
 
-void	readlemin(t_li *li)
+void	read_lemin(t_li *li)
 {
 	int		ret;
 	char	*line;
 	int		retour;
+	int		nbline;
 
+	nbline = 0;
 	retour = 0;
 	while ((ret = get_next_line(STDIN_FILENO, &line)) > 0)
 	{
-		addstdin(li, line);
+		nbline++;
 		retour = lineparser(li, line) + lineparser2(li, line);
 		if (retour == 0)
+		{
+			if (li->opts['v'])
+				ft_printf("{red}Error %d line: %d [%s] {eoc}\n",
+				retour, nbline, line);
 			break ;
+		}
+		addstdin(li, line);
 		free(line);
 		line = NULL;
 	}
+	check_lemin(li);
+	li->usedwires = (t_wire **)malloc(sizeof(t_wire) * li->ant);
+}
+
+void	check_lemin(t_li *li)
+{
 	if (!li->rooms || !li->wires || !li->end || !li->start)
 	{
-		ft_printf("ERROR {red}[t_li parser]{eoc}\n");
+		if (li->opts['v'])
+		{
+			ft_printf("{red}\nSomething is missing ! {eoc}\n");
+			if (!li->rooms)
+				ft_printf("{red}NO ROOMS {eoc}");
+			if (!li->wires)
+				ft_printf("{red}NO WIRES {eoc}");
+			if (!li->start)
+				ft_printf("{red}NO START {eoc}");
+			if (!li->end)
+				ft_printf("{red}NO END {eoc}");
+		}
+		else
+			ft_printf("ERROR\n");
 		exit(0);
 	}
-	li->usedwires = (t_wire **)malloc(sizeof(t_wire) * li->ant);
 }

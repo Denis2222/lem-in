@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 06:55:44 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/01 15:59:05 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/02 04:19:48 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,10 @@ typedef struct			s_lem_in
 	char				*stdin;
 }						t_li;
 
-t_li					*new_lem_in(void);
+t_li					*new_lemin(void);
+void					read_lemin(t_li *li);
 void					view(t_li *li);
-void					readlemin(t_li *li);
+void					check_lemin(t_li *li);
 int						ft_streachr(char *str, int (f)(int));
 void					viewstate(t_li *li);
 int						readopts(int ac, char **av, char *opts, int i);
@@ -106,6 +107,10 @@ void					populate_ant(t_li *li);
 void					ants_move(t_li *li);
 void					ants_choose_move(t_li *li);
 void					ant_move(t_li *li, t_ant *ant, t_rw *best, int nb);
+
+int						lineparser(t_li *li, char *line);
+int						lineparser2(t_li *li, char *line);
+int						lineparserflag(t_li *li, char *line, int *flag);
 
 t_dot					*dot(int x, int y);
 void					tracewire(t_screen *screen, t_wire *wire);
