@@ -6,20 +6,24 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 06:54:03 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/02 05:00:27 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/02 12:22:35 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include <limits.h>
 
 int		lineparser2(t_li *li, char *line)
 {
 	if (isant(line))
 	{
-		if (ft_atoi(line) >= 0)
+		if (ft_atoi(line) > 0 &&
+			ft_strlen(line) < 11 && ft_atoi(line) < INT_MAX)
+		{
 			if (li->ant == 0 && !li->rooms && !li->wires)
 				li->ant = ft_atoi(line);
-		return (1);
+			return (1);
+		}
 	}
 	else if (iswire(line))
 		return (newwire(li, line));

@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 06:54:20 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/02 05:17:45 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/02 12:39:48 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int		main(int ac, char **av)
 	lemin = new_lemin();
 	readopts(ac, av, lemin->opts, 0);
 	read_lemin(lemin);
-	ft_printf("%s\n", lemin->stdin);
 	spore(lemin);
+	ft_printf("%s\n", lemin->stdin);
 	coup = 0;
 	if (lemin->opts['v'])
 		viewstate(lemin);

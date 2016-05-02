@@ -1,0 +1,31 @@
+100
+##start
+start 5 5
+##end
+end 170 49
+#
+stage11 30 5
+stage12 50 5
+stage13 70 5
+stage14 90 5
+stage2 90 15
+stage21 110 5
+sud1 30 30
+sud2 20 35
+sud3 15 40
+sud 70 45
+start-stage11
+stage12-stage11
+stage12-stage@][p-09876513
+stage14-stage13
+stage14-stage2
+stage21-stage14
+stage2-end
+stage14-end
+stage21-end
+start-sud2
+start-sud3
+#sud1-stage2
+sud2-sud
+sud3-sud
+sud1-start

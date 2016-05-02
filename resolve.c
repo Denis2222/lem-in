@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 06:54:20 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/05/02 06:30:38 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/02 12:39:50 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ void	spore(t_li *li)
 	recurspore(li, li->end, 1);
 	if (!checkresolve(li))
 	{
-		ft_printf("ERROR \n{red}No solution found{eoc}");
+		ft_printf("ERROR\n");
+		if (li->opts['v'])
+			ft_printf("{red}No solution found{eoc}");
 		exit(0);
 	}
 	populate_ant(li);
