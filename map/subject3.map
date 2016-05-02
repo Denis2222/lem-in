@@ -1,0 +1,25 @@
+100
+##start
+start 65 15
+zdfg 110 10
+#commentaire
+qwerty 50 20
+4 50 30
+#5 40 10
+6 20 30
+7 50 40
+##end
+end 40 25
+end-4
+end-6
+start-qwerty
+4-qwerty
+5-zdfg
+qwerty-5
+#autre commentaire
+4-zdfg
+zdfg-start
+7-6
+7-zdfg
+7-4
+6-5
