@@ -101,13 +101,11 @@ void	ant_choose_move(t_li *li, t_ant *ant, int nb)
 void	ants_move(t_li *li)
 {
 	t_ant	*ant;
-	t_room	*room;
 	int		nb;
 	int		i;
 
 	nb = 1;
 	ant = li->ants;
-	room = li->rooms;
 	i = 0;
 	while (i < li->nbusedwires)
 	{
