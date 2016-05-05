@@ -42,7 +42,8 @@ test onemap.map
 ```
 
 Options :
+```
 ./lem-in -v [verbose mode] -g[ascii graph] -a [ascii graph with sleep step by step]
 ./lem-in -vga < onemap.map #with all options on
-
+```
 
