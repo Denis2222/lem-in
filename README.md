@@ -1,5 +1,3 @@
-**Projet d’Algorithmes Elémentaires**
-
 #**lem-in**
 
 Résumé: Ce projet a pour but de vous faire coder un gestionaire de fourmillière.
