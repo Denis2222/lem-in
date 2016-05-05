@@ -44,4 +44,8 @@ Options :
 ./lem-in -v [verbose mode] -g[ascii graph] -a [ascii graph with sleep step by step]
 ./lem-in -vga < onemap.map #with all options on
 ```
+./lem-in -a < ./map/special.map
+![Example](https://raw.githubusercontent.com/Denis2222/lem_in/master/ress/lemin.png)
 
+
+Tested on osx 10.11.4 & Debian 7.8
