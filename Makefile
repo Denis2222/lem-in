@@ -22,7 +22,7 @@ RM = rm -rf
 OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
 LIBFT = ./libft/libft.a
 
-all: $(NAME)
+all: $(NAME) test demo
 
 $(LIBFT):
 	@make -C libft
@@ -56,7 +56,7 @@ test: clean $(NAME)
 	time ./lem-in -v < ./map/300-15.map
 	time ./lem-in -v < ./map/test3
 	time ./lem-in -v < ./map/40-40.map
-	time ./lem-in -v < ./map/test4
+	#time ./lem-in -v < ./map/test4
 	time ./lem-in -v < ./map/5-5.map
 	time ./lem-in -v < ./map/test5
 	time ./lem-in -v < ./map/special.map
@@ -72,3 +72,6 @@ test: clean $(NAME)
 	time ./lem-in -v < ./map/test
 	time ./lem-in -v < ./map/error.map
 	time ./lem-in -v < ./map/lol.map
+
+demo:
+	sh ./demo.sh

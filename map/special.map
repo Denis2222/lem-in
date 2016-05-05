@@ -3,16 +3,15 @@
 start 5 5
 ##end
 end 170 49
-#
 stage11 30 5
-stage12 50 5
-stage13 70 5
-stage14 90 5
-stage2 90 15
-stage21 110 5
+stage12 70 5
+stage13 90 5
+stage14 130 5
+stage2 120 15
+stage21 150 5
 sud1 30 30
-sud2 20 35
-sud3 15 40
+sud2 20 40
+sud3 5 45
 sud 70 45
 start-stage11
 stage12-stage11
@@ -23,10 +22,11 @@ stage21-stage14
 stage2-end
 stage14-end
 stage21-end
+stage11-stage2
 start-sud2
 start-sud3
 sud1-sud
-#sud1-stage2
+sud1-stage2
 sud2-sud
 sud3-sud
 sud-end
